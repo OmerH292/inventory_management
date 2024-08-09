@@ -1,9 +1,10 @@
+// page.js
 'use client';
 import { useState, useEffect } from 'react';
 import { collection, query, getDocs, doc, deleteDoc, setDoc, getDoc } from 'firebase/firestore';
 import { Box, Stack, TextField, Modal, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { firestore } from '@/firebase'; // Ensure the path is correct
+import { firestore } from '@/firebase';
 
 export default function Home() {
   const [inventory, setInventory] = useState([]);
@@ -11,7 +12,7 @@ export default function Home() {
   const [itemName, setItemName] = useState('');
 
   const updateInventory = async () => {
-    const snapshot = await getDocs(collection(firestore,'inventory'));
+    const snapshot = await getDocs(collection(firestore, 'inventory'));
     const inventoryList = [];
 
     snapshot.forEach((doc) => {
@@ -22,6 +23,15 @@ export default function Home() {
     });
 
     setInventory(inventoryList);
+
+    // Remove analytics related code
+    // if (analytics) {
+    //   if (typeof analytics.logEvent === 'function') {
+    //     analytics.logEvent('inventory_update', { items: inventoryList.length });
+    //   } else {
+    //     console.warn('logEvent function is not available on analytics');
+    //   }
+    // }
   };
 
   const addItem = async (item) => {
